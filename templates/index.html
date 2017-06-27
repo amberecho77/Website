@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Main Page{% endblock %}
+
+{% block page_content %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>IP</th>
+            <th>Name</th>
+            <th>Admin</th>
+            <th>Update</th>
+            <th>Usage</th>
+            <th>Check</th>
+        <tr>
+    </thead>
+    <tbody>
+        {% for server in servers %}
+        <tr>
+            <td>{{ server.IP }}</td>
+            <td>{{ server.name }}</td>
+            <td>{{ server.admin }}</td>
+            <td>{{ server.date }}</td>
+            <td>{{ server.usage }}</td>
+            <td> <form action="/{{ server.id }}" method="post">
+                    <button type="submit" class="btn btn-primary">Check Details</button>
+            </form> </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>GPU Fan</th>
+            <th>Temperature</th>
+            <th>Power</th>
+            <th>Max Power</th>
+            <th>Memory Usage</th>
+            <th>Max Memory</th>
+            <th>Volite</th>
+            
+        <tr>
+    </thead>
+    <tbody>
+        {% for para in gpus %}
+        <tr>
+            <td>{{ para[0] }}</td>
+            <td>{{ para[1] }}</td>
+            <td>{{ para[2] }}</td>
+            <td>{{ para[3] }}</td>
+            <td>{{ para[4] }}</td>
+            <td>{{ para[5] }}</td>
+            <td>{{ para[6] }}</td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>GPU ID</th>
+            <th>PID</th>
+            <th>Process Name</th>
+            <th>Memory Usage</th>       
+        <tr>
+    </thead>
+    <tbody>
+        {% for para in processes %}
+        <tr>
+            <td>{{ para[0] }}</td>
+            <td>{{ para[1] }}</td>
+            <td>{{ para[2] }}</td>
+            <td>{{ para[3] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+<p>{{ moment(current_time).format('LTS', refresh=True) }}</p>
+<p>{{ moment(current_time).fromNow(refresh=True) }}</p>
+
+{% endblock %}
