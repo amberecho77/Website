@@ -55,4 +55,5 @@ def page_not_found(e):
 
 atexit.register(lambda: cron.shutdown(wait=False))
 if __name__ == "__main__":
+    a = 5
     manager.run()
